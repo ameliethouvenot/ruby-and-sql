@@ -49,3 +49,29 @@ Activity.destroy_all
 # ---------------------------------
 # Ben Block: 3 activities
 # Brian Eng: 0 activities
+
+# find salesperson
+ben = Salesperson.find_by("first_name" => "Ben", "last_name" => "Block")
+
+#find contact
+tim = Contact.find_by("first_name" => "Tim", "last_name" => "Cook")
+craig = Contact.find_by("first_name" => "Craig", "last_name" => "Federighi")
+
+#Activity.new 
+activity = Activity.new
+#assign new activity salesperson_id to salesperson
+activity["salesperson_id"] = ben["id"]
+
+#assign new activity contact_id to contact
+activity["contact_id"] = craig["id"]
+
+#assign the activity notes 
+activity["notes"] = "follow up coffee with Tim"
+activity.save 
+
+activities = Activity.where({"salesperson_id" => ben["id"], "contact_id" => tim["id"]})
+
+for activity in activities 
+    note = activity["notes"]
+    puts "-#{note}"
+end 

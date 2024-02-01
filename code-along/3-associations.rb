@@ -10,8 +10,27 @@ Contact.destroy_all
 
 # - Insert and read contact data for companies in the database
 
+puts "Companies: #{Company.all.count}"
+puts "Contacts: #{Contact.all.count}"
 # 1. insert new rows in the contacts table with relationship to a company
+apple = Company.find_by({"name" => "Apple"})
+
+contact = contact.new 
+contact["first_name"] = "Tim"
+contact["last_name"] = "Cook"
+contact["email"] = "tim@apple.com"
+contact["company_id"] = apple["id"]
+#assign to the foreign key of contact the primary key from the other table 
+contact.save 
 
 # 2. How many contacts work at Apple?
+apple_employees = Contact.where({"company_id" => apple["id"]})
+puts "Apple contacts: #{apple_employees.count}"
 
 # 3. What is the full name of each contact who works at Apple?
+for contact in apple_employees 
+    first_name = contact["first_name"]
+    last_name = contact["last_name"]
+    puts "#{first_name} #{last_name}"
+
+end
